@@ -1,0 +1,20 @@
+N = 100000;
+dim = 2;
+punkty = rand(dim, N);
+
+r = sum(punkty.^2)
+number_accepted = sum(r<1)
+fraction_accepted = number_accepted/N
+pi_estimate = 4*fraction_accepted
+
+punkty_in = punkty(:,r<1)
+punkty_out = punkty(:, r>1)
+
+plot(punkty_in(1,:), punkty_in(2,:), 'b.')
+hold on
+plot(punkty_out(1,:), punkty_out(2,:), 'r.')
+
+%x = linspace(0,1,1000);
+f = @(x) sqrt(1-x.^2)
+pi_numerical_estimate = 4*quadgk(f, 0, 1)
+relative_difference = (pi_estimate-pi_numerical_estimate)/pi_numerical_estimate
