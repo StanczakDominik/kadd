@@ -40,7 +40,7 @@ x = linspace(0,1,100)
 y = x
 y(x<0.5) = 4*x(x<0.5)
 y(x>=0.5) = 4-4*x(x>=0.5)
-N_random = 100000
+N_random = 1000
 random_tent = zeros(1,N_random);
 for i = 1:N_random
     random_number = rand();
