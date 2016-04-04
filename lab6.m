@@ -31,11 +31,7 @@ hold on
 
 NX = 100
 x = linspace(0,10,NX);
-our_cdf = zeros(1,NX);
-for i = 1:NX
-    our_cdf(i) = sum(our_random<x(i));
-end
-our_cdf = our_cdf / length(our_random);
+our_cdf = cumtrapz(bin, m)
 y = g(x);
 plot(x,y, 'r-')
 xlabel('x')
@@ -48,16 +44,18 @@ Expected = mean(our_random)
 StandardDev = std(our_random)
 Variance = var(our_random)
 Mediana = median(our_random)
-ExpectedA = 7.5
-VarianceA= 3.75
-MedianAnalytical = 5*2^(2/3)
+ExpectedA = quadgk(@(x) x.*g(x), 0, 10)%7.5
+VarianceA= quadgk(@(x) (x-ExpectedA).^2.*g(x),0, 10);%3.75
+search_kwantyla = @(x, a)(abs(G(x)-a))
+[smiec, mediana_idx] = min(search_kwantyla(x, 0.5))
+MedianAnalytical = x(mediana_idx)%5*2^(2/3)
 StandardDevA = sqrt(VarianceA)
-plot(x,our_cdf, 'bo')
+plot(bin,our_cdf, 'bo')
 hold on
 plot(x, G(x), 'r-');
 xlabel('x')
 ylabel('cdf')
-fprintf('?\tNumerycznie\tAnalit.\n');
+fprintf('?\tSample\tNumerycznie\n');
 fprintf('E\t%f\t%f\n', Expected, ExpectedA);
 fprintf('Std\t%f\t%f\n', StandardDev, StandardDevA);
 fprintf('Var\t%f\t%f\n', Variance, VarianceA);
