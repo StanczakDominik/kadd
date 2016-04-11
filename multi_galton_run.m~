@@ -1,0 +1,18 @@
+function [r] = multi_galton_run(Nrows, Nballs)
+    r = cumsum(randi(2, [Nballs Nrows])*2 - 3, 1);
+    for i=logspace(10,Nballs, 5)
+        r_this = r(Nrows, :i);
+        [x, y] = galton(Nrows);
+        [m, bin] = hist(r_this, Nrows/2);
+        m = m/trapz(bin,m);
+        bar(bin, m)
+        hold on
+        gaussian_std = std(r_this);
+        gaussian_mean = mean(r_this));
+        x_g = -Nrows/2:0.01:Nrows/2;
+        y_g = exp(-(x_g-gaussian_mean).^2/(2*gaussian_std.^2))/(gaussian_std*sqrt(2*pi));
+        plot(x_g, y_g, 'r-')
+        pause
+        hold off
+    end
+end
