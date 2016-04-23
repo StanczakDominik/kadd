@@ -22,18 +22,25 @@ random_numbers = invS((S(10)-S(0))*rand(1,N));
 acceptance_randoms = rand(1,N);
 ratio = g(random_numbers)./s(random_numbers);
 accepted = acceptance_randoms < ratio;
+
+[m_backup, bin_backup] = hist(random_numbers, 100);     %histogram random numbers - losowych punktów z naszej pomocniczej dystrybucji
+                                               %policzonych metodą odwrotnej dystrybuanty, z tego "łatwego" rozkładu
+m_backup = m_backup/trapz(bin_backup, m_backup);        %normalizacja jak ongiś
+bar(bin_backup, (S(10)-S(0)).*m_backup, "r");           %żeby to ładnie wyglądało to trzeba pomnożyć, inaczej z jakiegoś powodu jest za nisko - nie jestem pewien warum
+hold on
+
 our_random = random_numbers(accepted);
 our_random = sort(our_random);
 [m, bin] = hist(our_random, 100);
 m = m/trapz(bin,m);
-bar(bin, m)
+bar(bin, m, "b")                                          %zmieniony kolorek żeby było widoczne
 hold on
 
 NX = 100
 x = linspace(0,10,NX);
 our_cdf = cumtrapz(bin, m)
 y = g(x);
-plot(x,y, 'r-')
+plot(x,y, 'g-')                                           %kolorek
 xlabel('x')
 ylabel('pdf')
 title('von Neumann acceptance-rejection alg')
@@ -60,3 +67,4 @@ fprintf('E\t%f\t%f\n', Expected, ExpectedA);
 fprintf('Std\t%f\t%f\n', StandardDev, StandardDevA);
 fprintf('Var\t%f\t%f\n', Variance, VarianceA);
 fprintf('Med\t%f\t%f\n', Mediana, MedianAnalytical);
+pause
