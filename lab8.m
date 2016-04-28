@@ -1,6 +1,6 @@
 clear all
 
-chi2_arr=[3.84146,5.99146,7.81473,9.48773,11.0705,12.5916,14.0671,15.5073,16.9190, 18.3070, 19.6751, 21.0261, 22.3620, 23.6848];
+chi2_arr=[3.84146,5.99146,7.81473,9.48773,11.0705,12.5916,14.0671,15.5073,16.9190, 18.3070, 19.6751, 21.0261, 22.3620, 23.6848, 24.99579, 26.29623, 27.58711, 28.86930, 30.14353, 31.52638, 23.67057, 33.41043, 32.67057, 33.92444, 35.17246, 36.41503, 37.65248, 38.88514, 40.11327, 41.33714, 42.55697, 43.77297];
 
 N_random = 10000
 gauss_func = @(x, std, mean)1./std./(2.*pi).^(1/2).*exp(-(x-mean).^2./2./std.^2);
@@ -33,7 +33,7 @@ for liczba_zlozen = 1:50
     chi2 = sum((fit_gauss - running_convolution).^2./fit_gauss)
     chi_target = chi2_arr(liczba_zlozen)
     if chi2 < chi_target
-        printf('liczba zlozen: %d', liczba_zlozen);
+        printf('liczba zlozen: %d\n', liczba_zlozen);
         break
     end
 end
