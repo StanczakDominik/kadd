@@ -20,9 +20,10 @@ for i = 1:4
     title(h, i)
     xlabel(h,'x')
     ylabel(h,'y')
+    l=legend(h, 'punkty', 'dopasowanie');
+    set(l,'Location','SouthEast');
 end
-l=legend(h, 'punkty', 'dopasowanie');
-set(l,'Location','SouthEast');
+
 srednie_x = mean(X,1);
 srednie_y = mean(Y,1);
 wariancje_x = var(X,1,1);
