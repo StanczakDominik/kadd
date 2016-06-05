@@ -8,14 +8,14 @@ chi2_cutoff = [3.841, 5.991, 7.815, 9.488, 11.070, 12.592, 14.067, 15.507, 16.91
 for i = 1:n
     dof = n - 1 - 1 - i;
     chi2wynik = lab13_fit(x, y, dy, i);
-    if chi2wynik < chi2_cutoff(i)
+    if chi2wynik < chi2_cutoff(dof)
         str = 'na poziomie istotnosci 5 proc. mozemy opisac dane wielomianem stopnia %d: wyszlo %f do granicy %f';
-        str = sprintf(str, i, chi2wynik,  chi2_cutoff(i));
+        str = sprintf(str, i, chi2wynik,  chi2_cutoff(dof));
         disp(str)
         break
     else
         str = 'na poziomie istotnosci 5 proc. NIE mozemy opisac danych wielomianem stopnia %d: wyszlo %f do granicy %f';
-        str = sprintf(str, i, chi2wynik,  chi2_cutoff(i));
+        str = sprintf(str, i, chi2wynik,  chi2_cutoff(dof));
         disp(str)
     end
 end
